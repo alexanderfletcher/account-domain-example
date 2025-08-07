@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "test": "node --import tsx --test test/**/*",
+    "test": "node --import tsx --test test/**/*.ts",
     "build": "tsc",
     "type-check": "tsc --noEmit",
     "start": "node dist/src/index.js"
