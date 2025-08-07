@@ -24,7 +24,16 @@ const isAccountCreated = (account: Account): account is CreatedAccount => {
 const withdraw = (
   account: CreatedAccount,
   command: WithdrawMoneyCommand
-): MoneyWithdrawnEvent => {
+): AccountDomainEvent => {
+  if (account.balance < command.amount) {
+    return {
+      type: "InsufficientFundsEvent",
+      payload: {
+        attemptedWithdrawAmount: command.amount,
+      },
+    };
+  }
+
   return {
     type: "MoneyWithdrawnEvent",
     payload: {

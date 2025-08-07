@@ -20,4 +20,18 @@ describe(`GIVEN account a-1 is empty`, () => {
 
     assert.deepStrictEqual(events, expectedEvents);
   });
+
+  test(`Withdrawing 1500 credits from account a-1 returns an InsufficientFundsEvent`, () => {
+    const command = new WithdrawMoneyCommand("a-1", 1500);
+    const events = accountDomain.handle(account, command);
+
+    const expectedEvents: AccountDomainEvent = {
+      type: "InsufficientFundsEvent",
+      payload: {
+        attemptedWithdrawAmount: 1500,
+      },
+    };
+
+    assert.deepStrictEqual(events, expectedEvents);
+  });
 });

@@ -6,4 +6,11 @@ export type MoneyWithdrawnEvent = {
   };
 };
 
-export type AccountDomainEvent = MoneyWithdrawnEvent;
+export type InsufficientFundsEvent = {
+  type: "InsufficientFundsEvent";
+  payload: {
+    attemptedWithdrawAmount: number;
+  };
+};
+
+export type AccountDomainEvent = MoneyWithdrawnEvent | InsufficientFundsEvent;
