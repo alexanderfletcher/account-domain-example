@@ -1,7 +1,10 @@
 export class WithdrawMoneyCommand {
   constructor(readonly accountId: string, readonly amount: number) {
+    if (!Number.isInteger(amount)) {
+      throw new Error("Withdraw amount must be an integer");
+    }
     if (amount < 0) {
-      throw new Error("Cannot create a negative withdrawal command");
+      throw new Error("Withdraw amount must be positive");
     }
   }
 }

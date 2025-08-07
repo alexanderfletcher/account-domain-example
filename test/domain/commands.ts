@@ -15,3 +15,10 @@ test(`Creating a WithdrawMoneyCommand with a postive amount does not throw an er
   };
   assert.doesNotThrow(raiseCommand, Error);
 });
+
+test(`Creating a WithdrawMoneyCommand with a float amount of credits throws an error`, () => {
+  const raiseCommand = () => {
+    new WithdrawMoneyCommand("a-1", 500.5);
+  };
+  assert.throws(raiseCommand, Error);
+});
