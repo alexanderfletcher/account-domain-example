@@ -22,3 +22,10 @@ test(`Creating a WithdrawMoneyCommand with a float amount of credits throws an e
   };
   assert.throws(raiseCommand, Error);
 });
+
+test(`Creating a WithdrawMoneyCommand with a precision unsafe number throws an error`, () => {
+  const raiseCommand = () => {
+    new WithdrawMoneyCommand("a-1", 2 ** 53);
+  };
+  assert.throws(raiseCommand, Error);
+});
