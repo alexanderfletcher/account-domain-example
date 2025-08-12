@@ -10,6 +10,7 @@ export type InsufficientFundsEvent = {
   type: "InsufficientFundsEvent";
   payload: {
     attemptedWithdrawAmount: number;
+    accountId: string;
   };
 };
 

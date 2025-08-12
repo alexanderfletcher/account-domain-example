@@ -1,16 +1,19 @@
 import { AccountCommand, WithdrawMoneyCommand } from "./commands.js";
-import { AccountDomainEvent, MoneyWithdrawnEvent } from "./events.js";
+import { AccountDomainEvent } from "./events.js";
 
-const INITIAL_ACCOUNT_BALANCE = 1000;
+export const INITIAL_ACCOUNT_BALANCE = 1000;
 
 export type Account = InitialAccount | CreatedAccount;
-type InitialAccount = {};
+
+type InitialAccount = {
+  balance: typeof INITIAL_ACCOUNT_BALANCE;
+};
 type CreatedAccount = {
   accountId: string;
   balance: number;
 };
 
-const createAccount = (accountId: string): CreatedAccount => {
+export const createAccount = (accountId: string): CreatedAccount => {
   return {
     accountId,
     balance: INITIAL_ACCOUNT_BALANCE,
@@ -18,7 +21,7 @@ const createAccount = (accountId: string): CreatedAccount => {
 };
 
 const isAccountCreated = (account: Account): account is CreatedAccount => {
-  return Object.hasOwn(account, "balance");
+  return Object.hasOwn(account, "accountId");
 };
 
 const withdraw = (
@@ -30,6 +33,7 @@ const withdraw = (
       type: "InsufficientFundsEvent",
       payload: {
         attemptedWithdrawAmount: command.amount,
+        accountId: account.accountId,
       },
     };
   }

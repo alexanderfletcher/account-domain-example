@@ -1,3 +1,4 @@
+// We use a class over a plain type here so we can ensure the validation was run
 export class WithdrawMoneyCommand {
   constructor(readonly accountId: string, readonly amount: number) {
     if (!Number.isInteger(amount)) {
